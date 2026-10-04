@@ -1,0 +1,48 @@
+{
+    "model": "TF-IDF + Logistic Regression",
+    "dataset_samples": 7393,
+    "training_samples": 5914,
+    "testing_samples": 1479,
+    "accuracy": 0.9296822177146721,
+    "classification_report": {
+        "NotPhish": {
+            "precision": 0.9678308823529411,
+            "recall": 0.9385026737967914,
+            "f1-score": 0.9529411764705882,
+            "support": 1122.0
+        },
+        "Phish": {
+            "precision": 0.8235294117647058,
+            "recall": 0.9019607843137255,
+            "f1-score": 0.8609625668449198,
+            "support": 357.0
+        },
+        "accuracy": 0.9296822177146721,
+        "macro avg": {
+            "precision": 0.8956801470588235,
+            "recall": 0.9202317290552584,
+            "f1-score": 0.906951871657754,
+            "support": 1479.0
+        },
+        "weighted avg": {
+            "precision": 0.9329994929006086,
+            "recall": 0.9296822177146721,
+            "f1-score": 0.9307394431126682,
+            "support": 1479.0
+        }
+    },
+    "confusion_matrix": [
+        [
+            1053,
+            69
+        ],
+        [
+            35,
+            322
+        ]
+    ],
+    "label_mapping": {
+        "0": "NotPhish",
+        "1": "Phish"
+    }
+}
