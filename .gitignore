@@ -1,0 +1,100 @@
+# ==============================
+# Python / FastAPI Backend
+# ==============================
+
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Python packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Testing and coverage
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.mypy_cache/
+.ruff_cache/
+
+# ==============================
+# Node.js / React Frontend
+# ==============================
+
+node_modules/
+
+# Build output
+frontend/dist/
+frontend/build/
+
+# Framework caches
+.next/
+.vite/
+.turbo/
+
+# Package manager logs
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# ==============================
+# Environment Variables / Secrets
+# ==============================
+
+.env
+.env.*
+!.env.example
+
+# ==============================
+# IDE / Editor Files
+# ==============================
+
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ==============================
+# Operating System Files
+# ==============================
+
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# ==============================
+# Logs and Temporary Files
+# ==============================
+
+*.log
+logs/
+tmp/
+temp/
+
+# ==============================
+# Local Database / Runtime Files
+# ==============================
+
+*.sqlite
+*.sqlite3
+*.db
+*.pid
+
+# ==============================
+# Local Development Artifacts
+# ==============================
+
+coverage/
+playwright-report/
+test-results/
+.cache/

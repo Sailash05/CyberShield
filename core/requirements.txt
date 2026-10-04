@@ -1,0 +1,29 @@
+# FastAPI backend
+fastapi
+uvicorn[standard]
+
+# HTTP requests and website analysis
+requests
+httpx
+
+# DNS analysis
+dnspython
+
+# SSL/TLS certificate analysis
+cryptography
+pyOpenSSL
+
+# HTML parsing and website legitimacy analysis
+beautifulsoup4
+lxml
+
+# Machine Learning — Naive Bayes
+scikit-learn
+numpy
+pandas
+
+# URL and data processing
+validators
+
+# Environment variable management
+python-dotenv

@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cyber Shield URL Check</title>
+  <link rel="stylesheet" href="checker.css">
+</head>
+<body>
+  <main class="card">
+    <div class="brand">CYBER<span>SHIELD</span></div>
+    <p class="eyebrow">WEB PROTECTION</p>
+    <h1 id="heading">Checking this website…</h1>
+    <p id="message" class="message">Cyber Shield is analyzing the destination URL.</p>
+    <div class="url-box">
+      <div class="label">DESTINATION URL</div>
+      <div id="target" class="target"></div>
+    </div>
+    <div id="scoreBox" class="score-box" hidden>
+      <span>Phishing probability</span>
+      <strong id="score">—</strong>
+    </div>
+    <div id="status" class="status">Contacting Cyber Shield API…</div>
+    <div id="actions" class="actions" hidden>
+      <button id="backButton" class="secondary">Go Back</button>
+      <button id="continueButton" class="danger">Continue Anyway</button>
+    </div>
+    <button id="retryButton" class="primary" hidden>Retry Check</button>
+<p class="disclaimer">
+  Cyber Shield uses predefined keyword rules to classify websites.
+  A low score or a Legitimate classification does not guarantee that
+  a website is safe. Do not enter passwords or payment details on
+  websites you do not trust.
+</p>
+  </main>
+  <script src="checker.js"></script>
+</body>
+</html>

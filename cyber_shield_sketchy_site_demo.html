@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cyber Shield Awareness Lab — Sketchy Site Demo</title>
+  <style>
+    :root {
+      --red: #ff1744;
+      --yellow: #fff200;
+      --green: #39ff14;
+      --purple: #a100ff;
+      --ink: #161616;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: "Comic Sans MS", "Trebuchet MS", sans-serif;
+      background:
+        repeating-linear-gradient(45deg, #ffef00 0 16px, #ff8a00 16px 32px);
+    }
+    .lab-banner {
+      background: #101010;
+      color: #fff;
+      padding: 9px 16px;
+      font: 700 13px/1.4 Arial, sans-serif;
+      letter-spacing: .8px;
+      text-align: center;
+      border-bottom: 4px solid var(--green);
+    }
+    .top-ad {
+      margin: 12px auto;
+      max-width: 1180px;
+      padding: 14px;
+      text-align: center;
+      color: #fff;
+      background: linear-gradient(90deg, #ff003c, #6b00ff, #ff003c);
+      border: 5px dashed var(--yellow);
+      text-shadow: 2px 2px #000;
+      box-shadow: 0 0 0 4px #000;
+      animation: hue 5s linear infinite;
+    }
+    @keyframes hue { to { filter: hue-rotate(360deg); } }
+    .top-ad h1 { margin: 0; font-size: clamp(22px, 4vw, 42px); }
+    .top-ad p { margin: 5px 0 0; font-weight: bold; }
+    .ticker {
+      background: #000;
+      color: var(--green);
+      padding: 8px;
+      overflow: hidden;
+      white-space: nowrap;
+      font: bold 16px Arial, sans-serif;
+    }
+    .ticker span { display: inline-block; animation: crawl 18s linear infinite; }
+    @keyframes crawl { from { transform: translateX(100vw); } to { transform: translateX(-100%); } }
+    .layout {
+      max-width: 1180px;
+      margin: 14px auto 40px;
+      padding: 0 12px;
+      display: grid;
+      grid-template-columns: 190px minmax(0, 1fr) 210px;
+      gap: 14px;
+    }
+    .panel {
+      background: #fff;
+      border: 4px ridge #ff00d4;
+      padding: 12px;
+      box-shadow: 5px 5px 0 #111;
+      margin-bottom: 14px;
+    }
+    .panel h2, .panel h3 { margin-top: 0; }
+    .side-title {
+      background: var(--red);
+      color: #fff;
+      padding: 8px;
+      text-align: center;
+      font-size: 17px;
+      text-transform: uppercase;
+    }
+    .fake-link {
+      display: block;
+      color: #0000ee;
+      text-decoration: underline;
+      margin: 10px 0;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .ad-tile {
+      padding: 12px 8px;
+      margin: 10px 0;
+      border: 3px dotted #ff003c;
+      text-align: center;
+      background: linear-gradient(135deg, #fff, #ffd8f3);
+      font-family: Arial, sans-serif;
+    }
+    .ad-tile .emoji { font-size: 32px; display: block; }
+    .ad-label { color: #666; font-size: 10px; text-transform: uppercase; }
+    .button {
+      border: 3px outset #eee;
+      background: linear-gradient(#fffd00, #ff8c00);
+      color: #000;
+      padding: 11px 12px;
+      display: inline-block;
+      font-weight: 900;
+      text-transform: uppercase;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 2px 2px 0 #000;
+    }
+    .button.green {
+      background: linear-gradient(#8cff00, #00c853);
+      width: 100%;
+      font-size: 18px;
+    }
+    .button.purple { background: linear-gradient(#ff5df7, #9d00ff); color: #fff; }
+    .warning {
+      border: 4px solid #f00;
+      background: #fff3f3;
+      padding: 12px;
+      font-family: Arial, sans-serif;
+      font-weight: bold;
+      color: #c00;
+    }
+    .content h2 { font-size: 28px; }
+    .movie-card {
+      display: grid;
+      grid-template-columns: 135px 1fr;
+      gap: 14px;
+      border-bottom: 3px dashed #aaa;
+      padding: 14px 0;
+    }
+    .poster {
+      min-height: 150px;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-size: 40px;
+      text-align: center;
+      background: linear-gradient(135deg, #1700ff, #ff006e, #ffb000);
+      border: 3px solid #000;
+    }
+    .small { font-size: 12px; color: #555; font-family: Arial, sans-serif; }
+    .countdown { color: #f00; font-size: 22px; font-weight: 900; }
+    .footer {
+      background: #111;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+      font: 12px Arial, sans-serif;
+    }
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.72);
+      display: grid;
+      place-items: center;
+      padding: 16px;
+      z-index: 99;
+    }
+    .modal {
+      width: min(520px, 100%);
+      position: relative;
+      background: linear-gradient(145deg, #fff200, #ff8a00);
+      border: 8px ridge #ff1744;
+      padding: 26px 22px 22px;
+      text-align: center;
+      box-shadow: 0 0 0 5px #000, 0 0 35px #ff1744;
+      transform: rotate(-1deg);
+    }
+    .modal .close {
+      position: absolute;
+      top: 4px;
+      right: 8px;
+      border: 0;
+      background: transparent;
+      font-size: 25px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .modal h2 { color: #d00000; font-size: clamp(26px, 5vw, 38px); margin: 8px 0; }
+    .modal .prize { font-size: 64px; }
+    .modal .fineprint { font: 10px Arial, sans-serif; color: #4b3200; margin-top: 14px; }
+    .modal .claim { background: #ff003c; color: #fff; font-size: 22px; padding: 14px 20px; }
+
+    .random-ad-backdrop {
+      position: fixed;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: 16px;
+      background: rgba(15, 0, 20, .58);
+      z-index: 110;
+    }
+    .random-ad {
+      position: relative;
+      width: min(440px, 100%);
+      padding: 25px 22px 22px;
+      text-align: center;
+      color: #171717;
+      background: linear-gradient(145deg, #fff, #ffd1f5 55%, #fff200);
+      border: 7px dashed #ff1744;
+      box-shadow: 0 0 0 5px #111, 0 0 30px #ff00d4;
+      animation: adBounce .32s ease-out;
+      font-family: Arial, sans-serif;
+    }
+    @keyframes adBounce {
+      from { transform: scale(.72) rotate(3deg); opacity: .2; }
+      to { transform: scale(1) rotate(0); opacity: 1; }
+    }
+    .random-ad .ad-close {
+      position: absolute;
+      top: 5px;
+      right: 8px;
+      width: 32px;
+      height: 32px;
+      border: 2px solid #111;
+      background: #fff;
+      font-size: 24px;
+      font-weight: 900;
+      cursor: pointer;
+    }
+    .random-ad .ad-emoji { font-size: 54px; margin: 5px 0; }
+    .random-ad h2 { margin: 8px 0; color: #d00000; font-size: 28px; }
+    .random-ad p { line-height: 1.45; }
+    .random-ad .ad-action {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 13px 18px;
+      color: #fff;
+      background: #ff003c;
+      border: 3px outset #ffb3c2;
+      font-weight: 900;
+      font-size: 17px;
+      cursor: pointer;
+      text-transform: uppercase;
+    }
+    .random-ad .ad-disclaimer { font-size: 10px; color: #555; margin-top: 14px; }
+
+    .hidden { display: none; }
+    @media (max-width: 850px) {
+      .layout { grid-template-columns: 1fr; }
+      .left, .right { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; }
+      .movie-card { grid-template-columns: 95px 1fr; }
+      .poster { min-height: 125px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="lab-banner">CYBER SHIELD • AWARENESS LAB DEMO — FICTIONAL SIMULATION — NO REAL ADS OR MALWARE</div>
+
+  <div class="top-ad">
+    <h1>⚠️ ACCOUNT VERIFICATION REQUIRED ⚠️</h1>
+    <p>URGENT: Review this unexpected account notice before proceeding.</p>
+    <button class="button" onclick="showToast('Awareness demo: verify unexpected account notices through the official website.')">REVIEW ACCOUNT NOTICE</button>
+  </div>
+
+  <div class="ticker"><span>⚠️ SECURITY NOTICE • UNEXPECTED ACCOUNT ALERT • URGENT VERIFICATION REQUEST • PAUSE AND CHECK THE SOURCE BEFORE YOU TRUST IT ⚠️</span></div>
+
+  <div class="layout">
+    <aside class="left">
+      <section class="panel">
+        <div class="side-title">Quick Menu</div>
+        <a class="fake-link" href="#latest">Latest Movies!!!</a>
+        <a class="fake-link" href="#downloads">Download Center</a>
+        <a class="fake-link" href="#bonus">Secret Bonus</a>
+        <a class="fake-link" href="#offers">Exclusive Offers</a>
+      </section>
+      <section class="panel">
+        <div class="side-title">Sponsored</div>
+        <div class="ad-tile"><span class="ad-label">Simulated message</span><span class="emoji">📩</span><b>Important Account Notice</b><p class="small">Review unexpected account messages through the official service.</p><button class="button" onclick="showToast('Awareness demo: check the sender and domain before trusting a notice.')">REVIEW NOTICE</button></div>
+        <div class="ad-tile"><span class="ad-label">Simulated offer</span><span class="emoji">🎁</span><b>Your Reward Is Waiting!</b><p class="small">Unexpected prizes can be used to lure people into scams.</p><button class="button purple" onclick="showToast('Awareness demo: do not provide personal or payment information for unexpected prizes.')">REVIEW REWARD</button></div>
+      </section>
+    </aside>
+
+    <main class="content panel">
+      <div class="warning">⚠️ ACCOUNT SECURITY NOTICE: This simulated page claims that unusual activity requires attention. Do not trust urgent alerts without checking the source.</div>
+      <h2 id="latest">Account Access Review</h2>
+      <p>This fictional page imitates an account notification to demonstrate common phishing indicators, including urgency, unexpected requests, and claims that access may be restricted.</p>
+
+      <div class="movie-card" id="downloads">
+        <div class="poster">REVIEW<br>NOTICE</div>
+        <div>
+          <h3>Account Verification Required</h3>
+          <p>This simulated notice claims that account access may be restricted until an unexpected request is reviewed.</p>
+          <button class="button green" onclick="showToast('Awareness demo: do not enter credentials from a link in an unexpected message. Visit the official website directly.')">REVIEW ACCOUNT STATUS</button>
+          <p class="small">Training example • This button does not collect information or contact any service.</p>
+        </div>
+      </div>
+
+      <div class="movie-card">
+        <div class="poster">SESSION<br>NOTICE</div>
+        <div>
+          <h3>Session Review Notice</h3>
+          <p>This fictional message uses urgency to encourage a quick decision. Real services should be checked using their official website or app.</p>
+          <button class="button" onclick="showToast('Awareness demo: independently open the official website instead of following unexpected links.')">REVIEW NOTICE</button>
+        </div>
+      </div>
+
+      <div class="panel" id="bonus">
+        <h3>⚠️ Review Request</h3>
+        <p>This fictional notice creates a sense of urgency. The countdown is decorative and does not represent a real deadline.</p>
+        <div class="countdown" id="countdown">00:29</div>
+        <button class="button purple" onclick="showToast('Awareness tip: urgency and countdowns can pressure users into unsafe decisions.')">REVIEW REQUEST</button>
+      </div>
+
+      <div class="warning" id="offers">📩 Unexpected verification request: pause and check the sender, domain, and destination before taking action. This is only a simulated message.</div>
+      <p class="small">Training note: never enter passwords, payment details, or personal information just because a page displays an urgent warning.</p>
+    </main>
+
+    <aside class="right">
+      <section class="panel">
+        <div class="side-title">Security Scanner</div>
+        <div class="ad-tile"><span class="emoji">🛡️</span><b>Security Review Needed</b><p class="small">A message alone cannot prove that a device or account is compromised.</p><button class="button" onclick="showToast('Awareness tip: use trusted security software and independently verify alerts.')">REVIEW ALERT</button></div>
+      </section>
+      <section class="panel">
+        <div class="side-title">More Deals</div>
+        <div class="ad-tile"><span class="emoji">🔐</span><b>Review an Account Notice</b><p class="small">Unexpected security messages should be verified independently.</p><button class="button" onclick="showToast('Awareness demo: check account notices through the official app or website.')">REVIEW NOTICE</button></div>
+        <div class="ad-tile"><span class="emoji">🏆</span><b>Unexpected Reward Notice</b><p class="small">No actual prize exists; this is a fictional training example.</p><button class="button" onclick="openPrizeModal()">OPEN DEMO</button></div>
+      </section>
+    </aside>
+  </div>
+
+  <div class="footer">
+    Cyber Shield Awareness Lab • Fictional example.invalid page • All buttons are simulated • No external requests, downloads, tracking, or notification permissions
+  </div>
+
+  <div class="modal-backdrop" id="prizeModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal">
+      <button class="close" aria-label="Close popup" onclick="closePrizeModal()">×</button>
+      <div class="prize">🎉📱🎁</div>
+      <h2 id="modalTitle">UNEXPECTED REWARD NOTICE</h2>
+      <h3>THIS IS A SIMULATED PHISHING EXAMPLE</h3>
+      <p>A fictional page claims that you have been selected for a <b>FREE REWARD</b> and pressures you to act quickly.</p>
+      <div class="countdown">DEMO TIMER <span id="modalTimer">00:29</span></div>
+      <button class="button claim" onclick="showToast('Awareness tip: do not provide personal or payment information to claim unexpected rewards.')">REVIEW DEMO MESSAGE</button>
+      <p class="fineprint">* No prize exists. This popup does not request or collect personal information.</p>
+    </div>
+  </div>
+
+
+  <div class="random-ad-backdrop hidden" id="randomAdPopup" role="dialog" aria-modal="true" aria-labelledby="randomAdTitle">
+    <section class="random-ad">
+      <button class="ad-close" aria-label="Close advertisement" onclick="closeRandomAd()">×</button>
+      <div class="ad-emoji" id="randomAdEmoji">🎁</div>
+      <div class="ad-label">Simulated advertisement • Awareness demo</div>
+      <h2 id="randomAdTitle">YOU HAVE BEEN SELECTED!</h2>
+      <p id="randomAdText">An unbelievable offer is waiting for you.</p>
+      <button class="ad-action" id="randomAdAction" onclick="clickRandomAd()">CLAIM NOW!</button>
+      <p class="ad-disclaimer">Fictional popup for cybersecurity training. No offer is real; no data is collected.</p>
+    </section>
+  </div>
+
+  <div id="toast" style="position:fixed;bottom:16px;left:50%;transform:translateX(-50%);background:#111;color:#fff;padding:12px 18px;border:2px solid #39ff14;z-index:120;display:none;max-width:90%;text-align:center;font:14px Arial,sans-serif;"></div>
+
+  <script>
+    let seconds = 29;
+    const countdown = document.getElementById("countdown");
+    const modalTimer = document.getElementById("modalTimer");
+    function tick() {
+      seconds = seconds > 0 ? seconds - 1 : 29;
+      const value = `00:${String(seconds).padStart(2, "0")}`;
+      countdown.textContent = value;
+      modalTimer.textContent = value;
+    }
+    setInterval(tick, 1000);
+
+    function closePrizeModal() {
+      document.getElementById("prizeModal").classList.add("hidden");
+    }
+    function openPrizeModal() {
+      document.getElementById("prizeModal").classList.remove("hidden");
+    }
+    let toastTimeout;
+    function showToast(message) {
+      const toast = document.getElementById("toast");
+      toast.textContent = message;
+      toast.style.display = "block";
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => { toast.style.display = "none"; }, 3800);
+    }
+
+    // Random simulated awareness popups appear every 2.5 seconds after the opening modal closes.
+    // They start after the opening prize modal is closed, so popups do not stack.
+    const randomAds = [
+      {
+        emoji: "📱",
+        title: "UNEXPECTED REWARD NOTICE",
+        text: "This fictional message claims a reward is waiting and encourages a quick decision. Verify unexpected offers independently.",
+        action: "REVIEW REWARD"
+      },
+      {
+        emoji: "🛡️",
+        title: "ACCOUNT SECURITY NOTICE",
+        text: "This simulated alert claims that an account needs attention. A message alone does not prove an account is at risk.",
+        action: "REVIEW NOTICE"
+      },
+      {
+        emoji: "💸",
+        title: "UNEXPECTED ACCOUNT MESSAGE",
+        text: "Check the sender and website domain carefully before trusting an unexpected account-related request.",
+        action: "CHECK MESSAGE"
+      },
+      {
+        emoji: "🎉",
+        title: "VERIFICATION REQUEST",
+        text: "This fictional notice uses urgent language to prompt action. Pause and visit the official website directly if concerned.",
+        action: "REVIEW REQUEST"
+      },
+      {
+        emoji: "⬇️",
+        title: "SESSION REVIEW REQUIRED",
+        text: "This training popup imitates an account notice. Do not follow unexpected links or share sensitive details.",
+        action: "REVIEW SESSION"
+      }
+    ];
+
+    let randomAdTimer = null;
+    let randomAdActive = false;
+    let lastRandomAdIndex = -1;
+
+    function scheduleRandomAd() {
+      if (randomAdTimer) clearTimeout(randomAdTimer);
+      const delay = 2500; // 2500 ms = 2.5 seconds
+      randomAdTimer = setTimeout(() => {
+        showRandomAd();
+      }, delay);
+    }
+
+    function showRandomAd() {
+      if (randomAdActive || !document.getElementById("prizeModal").classList.contains("hidden")) {
+        scheduleRandomAd();
+        return;
+      }
+
+      let index;
+      do {
+        index = Math.floor(Math.random() * randomAds.length);
+      } while (randomAds.length > 1 && index === lastRandomAdIndex);
+      lastRandomAdIndex = index;
+
+      const ad = randomAds[index];
+      document.getElementById("randomAdEmoji").textContent = ad.emoji;
+      document.getElementById("randomAdTitle").textContent = ad.title;
+      document.getElementById("randomAdText").textContent = ad.text;
+      document.getElementById("randomAdAction").textContent = ad.action;
+      document.getElementById("randomAdPopup").classList.remove("hidden");
+      randomAdActive = true;
+    }
+
+    function closeRandomAd() {
+      document.getElementById("randomAdPopup").classList.add("hidden");
+      randomAdActive = false;
+      scheduleRandomAd();
+    }
+
+    function clickRandomAd() {
+      closeRandomAd();
+      showToast("Cyber Shield awareness tip: unexpected prizes, scare alerts, and urgent downloads are common red flags.");
+    }
+
+    // Start the random cycle after the initial modal is dismissed.
+    const originalClosePrizeModal = closePrizeModal;
+    closePrizeModal = function() {
+      originalClosePrizeModal();
+      if (!randomAdTimer && !randomAdActive) scheduleRandomAd();
+    };
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") { closeRandomAd(); closePrizeModal(); }
+    });
+  </script>
+</body>
+</html>
